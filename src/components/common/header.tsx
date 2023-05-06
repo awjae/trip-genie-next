@@ -3,7 +3,7 @@ import React from 'react'
 function header() {
   return (
     <header>
-      <h1>트립지니</h1>
+      <div>트립지니</div>
       <ul>
         <li>이용방법</li>
         <li>로그인</li>
