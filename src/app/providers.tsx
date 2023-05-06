@@ -1,6 +1,4 @@
-// app/providers.jsx
 'use client'
-
 import { useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
