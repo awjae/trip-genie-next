@@ -13,6 +13,7 @@ import { pool } from "@/utils/pg"
 export async function getCities() {
   const client = await pool.connect()
   const result = await client.query('SELECT * FROM cities')
+  client.release()
   return { message: 'success', result: result.rows }
 }
 

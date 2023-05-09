@@ -1,0 +1,27 @@
+.header {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  padding: 0 50px;
+  height: 80px;
+  width: 100%;
+  color: #fff;
+  z-index: 1;
+}
+
+.header > div {
+  font-size: 30px;
+  font-weight: 800;
+}
+.header nav {
+  margin-left: auto;
+  display: flex;
+  font-weight: 700;
+  font-size: 18px;
+}
+.header nav > div:not(:first-of-type) {
+  margin-left: 15px;
+}
+.header nav > div {
+  padding: 15px;
+}

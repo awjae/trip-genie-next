@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800');
+@import url('https://fonts.googleapis.com/css?family=Jua:400');
+
+
+:root {
+  font-family: "Nanum Gothic";
+  color: #222;
+}
+
 p {
   margin: 0;
 }
@@ -383,3 +392,4 @@ template {
 [hidden] {
   display: none;
 }
+
