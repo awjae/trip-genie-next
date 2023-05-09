@@ -3,20 +3,26 @@
 import { CityType } from '@/types/city'
 import React, { useEffect, useState } from 'react'
 import styles from '@/styles/cityList.module.css'
-import Link from 'next/link';
-import CityItem from './cityItem';
-import classNames from 'classnames';
+import CityItem from './cityItem'
+import classNames from 'classnames'
+import MenuItem from '@mui/material/MenuItem'
+import Select, { SelectChangeEvent } from '@mui/material/Select'
 
 function CityList({ result }: { result: CityType[]; }) {
   const [cityList, setCityList] = useState<CityType[]>(result)
   const [nationOptions, setNatioOptions] = useState({
     label: ["전체", "국내", "해외"],
     options: ["ALL", "INNER", "OUTER"],
-    value: "ALL"
+    value: "ALL",
+    filter: 'recommend'
   })
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNatioOptions(prevState => ({ ...prevState, value: event.target.value }))
+  }
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setNatioOptions(prevState => ({ ...prevState, filter: event.target.value }))
   }
 
   useEffect(() => {
@@ -28,7 +34,6 @@ function CityList({ result }: { result: CityType[]; }) {
       setCityList(result.filter((item: CityType) => item.nation !== 'korea'))
     }
   }, [nationOptions.value])
-  
 
   return (
     <div className={styles.cityListLayer}>
@@ -40,10 +45,15 @@ function CityList({ result }: { result: CityType[]; }) {
         ))}
       </div>
       <div>
-        <select name="" id="">
-          <option value="">추천순</option>
-          <option value="">인기순</option>
-        </select>
+        <Select
+          value={nationOptions.filter}
+          onChange={handleChange}
+          displayEmpty
+          inputProps={{ 'aria-label': 'Without label' }}
+        >
+          <MenuItem value={'recommend'}>추천순</MenuItem>
+          <MenuItem value={'hot'}>인기순</MenuItem>
+        </Select>
       </div>
       <ul>
         { cityList.map((city: CityType) => (
