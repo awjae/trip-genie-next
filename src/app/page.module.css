@@ -6,23 +6,23 @@
 }
 .main .searchLayer {
   position: absolute;
-  top: calc(50% - 80px);
+  top: calc(50% - 40px);
   left: 50%;
   border-radius: 25px;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, .85);
   width: 500px;
   padding: 30px 40px;
   transform: translate(-50%, -50%);
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
   text-align: center;
 }
-.main .searchLayer h2 {
+.searchLayer h2 {
   margin-bottom: 20px;
   font-family: Jua;
   letter-spacing: 1.4px;
   font-weight: 400;
 }
-.main .searchLayer input {
+.searchLayer input {
   outline: none;
   border: 1px solid #e5e5e5;
   height: 60px;
@@ -31,10 +31,10 @@
   padding-right: 40px;
   font-size: 18px;
 }
-.main .searchLayer > div {
+.searchLayer > div {
   position: relative;
 }
-.main .searchLayer a {
+.searchLayer a {
   position: absolute;
   right: 10px;
   top: 50%;

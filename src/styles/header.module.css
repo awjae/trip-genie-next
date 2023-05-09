@@ -7,6 +7,13 @@
   width: 100%;
   color: #fff;
   z-index: 1;
+  transition: background-color 0.5s;
+}
+.header.invert {
+  background-color: #557aff;
+}
+.header.invert nav > div:hover {
+  color: #fff;
 }
 
 .header > div {
@@ -16,6 +23,7 @@
 .header nav {
   margin-left: auto;
   display: flex;
+  height: 100%;
   font-weight: 700;
   font-size: 18px;
 }
@@ -23,5 +31,14 @@
   margin-left: 15px;
 }
 .header nav > div {
+  display: flex;
+  align-items: center;
   padding: 15px;
+  height: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.header nav > div:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #557aff;
 }

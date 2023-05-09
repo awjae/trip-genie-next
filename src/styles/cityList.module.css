@@ -1,0 +1,31 @@
+.cityListLayer {
+  display: block;
+  margin: 80px auto;
+  width: 1024px;
+}
+.cityListLayer > div:first-of-type {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 50px;
+  width: 600px;
+}
+.nationLabel {
+  text-align: center;
+}
+.nationLabel label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  width: 120px;
+  height: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.nationLabel label.active, .nationLabel label:hover {
+  background-color: #557aff;
+  color: #fff;
+}
+.nationLabel input {
+  display: none;
+}

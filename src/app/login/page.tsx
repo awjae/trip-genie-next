@@ -1,12 +1,12 @@
 import Footer from '@/components/common/footer'
-import Header from '@/components/common/header'
+import Header from '@/components/common/header/header'
 import React from 'react'
 
-function page() {
+function Page() {
   return (
     <>
     <Header></Header>
-    <main className={styles.main}>
+    <main>
       
     </main>
     <Footer></Footer>
@@ -14,4 +14,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

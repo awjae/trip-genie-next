@@ -1,6 +1,6 @@
 import React from 'react'
 
-function page() {
+function Page() {
   return (
     <main>
       <aside>
@@ -14,4 +14,4 @@ function page() {
   )
 }
 
-export default page
+export default Page
