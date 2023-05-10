@@ -9,7 +9,7 @@ export const metadata = {
   openGraph: {
     title: '트립지니(Trip-Genie) :: AI 여행 일정 플래너',
     description: '트립지니(Trip-Genie) :: 간편한 여행 일정 플래너, AI 여행 플래너',
-    images: ['og_image.png'],
+    images: ['opengraph-image.png'],
     canonical: './',
     url: 'https://tripgenie.kr',
     locale: 'ko-KR',

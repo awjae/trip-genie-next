@@ -7,7 +7,7 @@ function CityItem({ city }: { city: CityType }) {
   return (
     <li className={styles.card}>
       <div className={styles.cardBackground} style={{ backgroundImage: `url(/images/city/${city.enName}.jpg)` }}></div>
-      <Link href={`/city/${city.id}`}>
+      <Link href={`/map/${city.id}`}>
         <p>{city.enName.toUpperCase()}</p>
         <p>{city.name}</p>
       </Link>
