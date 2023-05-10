@@ -63,6 +63,7 @@
 }
 .cityListLayer .card:hover .cardBackground {
   scale: 1.2;
+  filter: brightness(1);
 }
 .cityListLayer .cardBackground {
   position: absolute;
@@ -73,11 +74,12 @@
   height: 250px;
   z-index: -1;
   transition: all 200ms;
+  filter: brightness(0.8);
 }
 .cityListLayer .card a {
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: baseline;
   padding: 20px;
   width: 100%;
