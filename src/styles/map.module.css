@@ -1,8 +1,15 @@
 .map {
+  display: flex;
   width: 100vw;
   height: 100vh;
 }
 .mapElements {
-  width: 100%;
+  width: calc(100% - 480px);
   height: 100%;
+}
+.mapLeftAside {
+  width: 280px;
+}
+.mapLeftAside {
+  width: 200px;
 }

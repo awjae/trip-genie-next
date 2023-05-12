@@ -18,4 +18,3 @@ export async function getCities(cityId?: number) {
   client.release()
   return { message: 'success', result: result.rows }
 }
-

@@ -1,6 +1,7 @@
 import Footer from "@/components/common/footer"
 import Header from "@/components/common/header/header"
 import './globals.css'
+import Providers from "@/utils/provider"
 
 export const metadata = {
   title: '트립지니(Trip-Genie) :: AI 여행 일정 플래너',
@@ -41,7 +42,7 @@ export default function RootLayout({
       <head>
       </head>
       <body>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

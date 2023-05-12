@@ -1,4 +1,4 @@
-import { getCities } from '@/lib/city';
+import { getCities } from '@/lib/serverQueries';
 import { NextResponse } from 'next/server';
 
 //use client 에 유의미

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Map, View, Feature, Overlay } from 'ol'
 import { Tile } from 'ol/layer'
 import { OSM } from 'ol/source'
@@ -8,6 +8,8 @@ import { get, Projection } from 'ol/proj'
 import 'ol/ol.css'
 import useMapStore from '@/store/mapStore'
 import styles from '@/styles/map.module.css'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { getCities } from '@/lib/serverQueries'
 
 function MapWrapper() {
   const map = useMapStore((state: any) => state.map)
