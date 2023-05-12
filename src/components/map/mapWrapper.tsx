@@ -10,15 +10,16 @@ import useMapStore from '@/store/mapStore'
 import styles from '@/styles/map.module.css'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { getCities } from '@/lib/serverQueries'
+import { CityType } from '@/types/city'
 
-function MapWrapper({ city }: any) {
+function MapWrapper({ city }: { city: CityType; }) {
   const map = useMapStore((state: any) => state.map)
   const setMap = useMapStore((state: any) => state.setMap)
 
   useEffect(() => {
-    console.log(city)
+    if (!city) return
+    map.getView().setCenter([Number(city.lng), Number(city.lat)])    
   }, [city])
-  
 
   useEffect(() => {
     const temp = new Map({
@@ -31,7 +32,7 @@ function MapWrapper({ city }: any) {
       view: new View({
         projection: get('EPSG:4326') as Projection,
         center: [126.936743, 37.486479],
-        zoom: 12
+        zoom: 11
       }),
     })
     setMap(temp)
