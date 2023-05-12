@@ -11,9 +11,14 @@ import styles from '@/styles/map.module.css'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { getCities } from '@/lib/serverQueries'
 
-function MapWrapper() {
+function MapWrapper({ city }: any) {
   const map = useMapStore((state: any) => state.map)
   const setMap = useMapStore((state: any) => state.setMap)
+
+  useEffect(() => {
+    console.log(city)
+  }, [city])
+  
 
   useEffect(() => {
     const temp = new Map({

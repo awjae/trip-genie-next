@@ -8,15 +8,10 @@ import { use } from 'react';
 import { useQuery } from '@tanstack/react-query'
 import { getCityForClient } from '@/lib/fetchers'
 
-
-
 function Page() {
   const searchParams = useSearchParams()
   const cityId = searchParams.get("cityId")
-  const { data: cityData } = useQuery({
-    queryKey: ["getCity"],
-    queryFn: () => getCityForClient(Number(cityId)),
-  })
+  const { data: cityData } = useQuery(["getCity"], async () => await getCityForClient(Number(cityId)))
   
   return (
     <main className={styles.map}>
@@ -24,8 +19,8 @@ function Page() {
         <div>목적지</div>
         <div>날짜</div>
       </aside>
-      <MapWrapper></MapWrapper>
-      <aside>
+      <MapWrapper city={cityData}></MapWrapper>
+      <aside className={styles.mapRightAside}>
         <div>장소들</div>
       </aside>
     </main>
