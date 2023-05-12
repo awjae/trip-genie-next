@@ -8,8 +8,50 @@
   height: 100%;
 }
 .mapLeftAside {
+  padding: 35px 15px 15px;
   width: 280px;
+  height: calc(100% - 60px);
+  text-align: center;
+  box-shadow: rgba(99, 99, 99, 0.4) 0px 0px 5px 0px;
+  z-index: 1;
 }
+.mapLeftAside h1 {
+  font-size: 32px;
+  font-weight: 900;
+}
+.mapLeftAside h1 + p {
+  margin-bottom: 25px;
+  font-size: 21px;
+  color: #b6b6b6;
+}
+.mapLeftAside .calender {
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: -1.4px;
+}
+.mapLeftAside .calender p {
+  margin-bottom: 15px;
+}
+.mapLeftAside .calender p:first-child {
+  font-weight: 800;
+}
+.mapLeftAside .calender p:last-of-type {
+  letter-spacing: -2.1px;
+  font-size: 21px;
+  color: #b6b6b6;
+}
+.mapLeftAside .desc {
+  margin-top: 40px;
+  line-height: 1.6;
+  word-break: keep-all;
+  text-align: left;
+  font-size: 15px;
+}
+
 .mapRightAside {
   width: 230px;
+  padding: 35px 15px 15px;
+  height: calc(100% - 60px);
+  box-shadow: rgba(99, 99, 99, 0.4) 0px 0px 5px 0px;
+  z-index: 1;
 }
