@@ -1,11 +1,13 @@
+import { getCities } from '@/lib/city';
 import { NextResponse } from 'next/server';
 
 //use client 에 유의미
-
 export async function GET(request: Request) {
-  return NextResponse.json({ message: 'success'})
+  const url = new URL(request.url);
+  const searchParams = new URLSearchParams(url.search).get('cityId')
+  const result = await getCities(Number(searchParams))
+  return NextResponse.json({ result: result.result })
 }
-
 export async function HEAD(request: Request) {}
  
 export async function POST(request: Request) {}

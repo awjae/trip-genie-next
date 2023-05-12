@@ -3,6 +3,7 @@ import React from 'react'
 import styles from '@/styles/map.module.css'
 
 function Page() {
+
   return (
     <main className={styles.map}>
       <aside>

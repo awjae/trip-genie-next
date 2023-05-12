@@ -10,9 +10,11 @@ import { pool } from "@/utils/pg"
 //   return res.json()
 // }
 
-export async function getCities() {
+export async function getCities(cityId?: number) {
+  let sql = 'SELECT * FROM cities';
+  if (cityId) sql += ` WHERE id = ${cityId}`
   const client = await pool.connect()
-  const result = await client.query('SELECT * FROM cities')
+  const result = await client.query(sql)
   client.release()
   return { message: 'success', result: result.rows }
 }
