@@ -1,12 +1,12 @@
 'use client'
 
 import MapWrapper from '@/components/map/mapWrapper'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '@/styles/map.module.css'
 import { useSearchParams } from 'next/navigation'
 import { use } from 'react';
-import { useQuery } from '@tanstack/react-query'
-import { getCityForClient } from '@/lib/fetchers'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { getCityForClient, postCityForClient } from '@/lib/fetchers'
 import HeaderContents from '@/components/common/header/headerContents'
 import classNames from 'classnames'
 import headerStyles from '@/styles/header.module.css'
@@ -15,6 +15,21 @@ function Page() {
   const searchParams = useSearchParams()
   const cityId = searchParams.get("cityId")
   const { data: cityData } = useQuery(["getCity"], async () => await getCityForClient(Number(cityId)))
+  const { mutate } = useMutation(["postCity"], async (variables: any) => await postCityForClient(variables.name, Number(variables.id), variables.options))
+
+  const getSpots = async (name: string, id: number) => {
+    const response = await fetch(`https://www.myro.co.kr/searchMostSelectedSpots?cityName=${name}`)
+    const result = response.json()
+    console.log(result)
+    // mutate({ name, id, options:  })
+  }
+
+  useEffect(() => {
+    if (cityData) {
+      getSpots(cityData.enName, Number(cityData.id))
+    }
+  }, [cityData])
+  
 
   return (
     <>
