@@ -22,6 +22,14 @@ function MapWrapper({ city }: { city: CityType; }) {
   }, [city])
 
   useEffect(() => {
+    if (Object.keys(map).length) {
+      if (city) {
+        map.getView().setCenter([Number(city.lng), Number(city.lat)])
+      }
+      
+      return
+    }
+    
     const temp = new Map({
       layers: [
         new Tile({

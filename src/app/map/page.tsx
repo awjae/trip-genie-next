@@ -11,21 +11,55 @@ import HeaderContents from '@/components/common/header/headerContents'
 import classNames from 'classnames'
 import headerStyles from '@/styles/header.module.css'
 import { SpotType } from '@/types/spot'
+import SpotItem from '@/components/map/spotItem'
+import useMapStore from '@/store/mapStore'
+import VectorLayer from 'ol/layer/Vector'
+import Style from 'ol/style/Style'
+import Icon from 'ol/style/Icon'
+import VectorSource from 'ol/source/Vector'
+import { Geometry, Point } from 'ol/geom'
+import { Feature } from 'ol'
+import { iconStyle } from '@/utils/map'
+import { Layer } from 'ol/layer'
+import { returnOrUpdate } from 'ol/extent'
 
 function Page() {
   const searchParams = useSearchParams()
   const cityId = searchParams.get("cityId")
-  const { data: cityData } = useQuery(["getCity", cityId], async () => await getCityForClient(Number(cityId)))
-  const { data: spotsData } = useQuery(["getSpots", cityId], async () => await getSpotsForClient(Number(cityId)))
-  const { mutate } = useMutation(["postCity"], async (variables: any) => await postCityForClient(variables.name, Number(variables.id), variables.options))
+  const map = useMapStore((state: any) => state.map)
 
+  const { data: cityData } = useQuery(["getCity", cityId], async () => await getCityForClient(Number(cityId)))
+  const { data: spotsData } = useQuery(["getSpots", cityId], async () => await getSpotsForClient(Number(cityId)), {
+    onSuccess(data) {
+      const iconFeatureList:Feature<Geometry>[] = [];
+      data.forEach((element: SpotType) => { 
+        const iconFeature = new Feature({
+          geometry: new Point([element.lng, element.lat]),
+          name: element.name,
+          subName: element.subName,
+          openTime: element.openTime,
+          address: element.address,
+        })
+        iconFeature.setStyle(iconStyle)
+        iconFeatureList.push(iconFeature)
+      })
+      const vectorSource = new VectorSource({ features: iconFeatureList })
+      const pointLayer = new VectorLayer({ source: vectorSource })
+      pointLayer.set("name", "spots")
+      map.addLayer(pointLayer)
+    },
+  })
   useEffect(() => {
-    console.log(spotsData)
-    return () => {
-      
-    }
-  }, [spotsData])
+    if (!Object.keys(map).length) return
+    const collection = map.getLayers()
     
+    return () => {
+      collection.getArray().filter((layer: Layer) => layer.get("name") === "spots").forEach((layer: Layer) => {
+        collection.remove(layer)
+      })
+    }
+  }, [map])
+  
 
   return (
     <>
@@ -52,9 +86,7 @@ function Page() {
         <aside className={styles.mapRightAside}>
           <ul>
             { spotsData && spotsData?.map((spot: SpotType) => (
-              <li key={spot.id}>
-                <h3>{spot.subName}</h3>
-              </li>
+              <SpotItem key={spot.id} id={spot.id} subName={spot.subName}></SpotItem>
             ))}
           </ul>
         </aside>
