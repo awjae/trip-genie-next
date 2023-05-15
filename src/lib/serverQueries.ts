@@ -18,3 +18,10 @@ export async function getCities(cityId?: number) {
   client.release()
   return { message: 'success', result: result.rows }
 }
+export async function getSpots(cityId?: number) {
+  let sql = `SELECT * FROM spots WHERE "cityId" = ${cityId};`;
+  const client = await pool.connect()
+  const result = await client.query(sql)
+  client.release()
+  return { message: 'success', result: result.rows }
+}

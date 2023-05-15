@@ -1,7 +1,7 @@
 .map {
   display: flex;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 60px);
 }
 .mapElements {
   width: calc(100% - 480px);
@@ -10,7 +10,7 @@
 .mapLeftAside {
   padding: 35px 15px 15px;
   width: 280px;
-  height: calc(100% - 60px);
+  height: 100%;
   text-align: center;
   box-shadow: rgba(99, 99, 99, 0.4) 0px 0px 5px 0px;
   z-index: 1;
@@ -51,7 +51,31 @@
 .mapRightAside {
   width: 230px;
   padding: 35px 15px 15px;
-  height: calc(100% - 60px);
+  height: 100%;
   box-shadow: rgba(99, 99, 99, 0.4) 0px 0px 5px 0px;
   z-index: 1;
+  overflow: auto;
+}
+
+.mapRightAside li {
+  position: relative;
+  background-color: #ffffff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 3px dashed transparent;
+  box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
+  color: #2e2e2f;
+  max-width: 350px;
+}
+.mapRightAside li:hover {
+  box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
+  border-color: rgba(162, 179, 207, 0.2) !important;
+}
+.mapRightAside li h3 {
+  font-size: 16px;
+  font-weight: normal;
+  word-break: keep-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -12,3 +12,10 @@ export async function postCityForClient(name: string, id: number, data: any) {
   const { result } = await res.json()
   return result[0];
 }
+
+export async function getSpotsForClient(cityId?: number) {
+  if (!cityId) return
+  const res = await fetch(`/api/spots?cityId=${cityId}`);
+  const { result } = await res.json()
+  return result;
+}
