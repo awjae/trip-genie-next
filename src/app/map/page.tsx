@@ -14,7 +14,7 @@ import headerStyles from '@/styles/header.module.css'
 function Page() {
   const searchParams = useSearchParams()
   const cityId = searchParams.get("cityId")
-  const { data: cityData } = useQuery(["getCity"], async () => await getCityForClient(Number(cityId)))
+  const { data: cityData } = useQuery(["getCity", cityId], async () => await getCityForClient(Number(cityId)))
   const { mutate } = useMutation(["postCity"], async (variables: any) => await postCityForClient(variables.name, Number(variables.id), variables.options))
 
   const getSpots = async (name: string, id: number) => {
