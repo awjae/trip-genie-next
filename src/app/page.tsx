@@ -20,7 +20,7 @@ export default async function Home() {
           <video src="/images/banner_video_1.mp4" autoPlay loop muted></video>
           <div className={styles.searchLayer}>
             <label htmlFor="searchInput"><h2>어디로 여행을 떠나시나요?</h2></label>
-            <SearchInput></SearchInput>
+            <SearchInput suggestionList={result}></SearchInput>
           </div>
         </div>
         <CityList result={result}></CityList>
