@@ -5,8 +5,8 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import styles from '@/app/page.module.css'
 import { CityType } from '@/types/city'
-import { debounce } from '@mui/material'
 import { useRouter } from 'next/navigation'
+import { useDebounceFunction } from '@/utils/utils'
 
 function SearchInput({ suggestionList }: { suggestionList: CityType[] }) {
   const [inputText, setInputText] = useState('')
@@ -23,12 +23,15 @@ function SearchInput({ suggestionList }: { suggestionList: CityType[] }) {
   }
 
   const filteredSuggestionFn = (value: string) => {
+    console.log(value)
     setFilterdeSuggestionList(suggestionList.filter(name => name.name.indexOf(value) > -1))
   }
 
+  const debouncedFetchSuggestions = useDebounceFunction(filteredSuggestionFn, 300)
+  
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedCity(null)
-    debounce(() => filteredSuggestionFn(e.target.value), 1000)
+    debouncedFetchSuggestions(e.target.value)
     setInputText(e.target.value)
   }
 

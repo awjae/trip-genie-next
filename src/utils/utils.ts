@@ -1,10 +1,24 @@
+import { useState, useEffect } from 'react';
 
-export const debounce = <T extends any[]>(func: (...args: T) => void, delay: number) => {
-    let timeoutId: NodeJS.Timeout;
-    return (...args: T) => {
-      clearTimeout(timeoutId)
-      timeoutId = setTimeout(() => {
-        func(...args)
-      }, delay)
+export const useDebounceFunction = <F extends (...args: any[]) => void>(
+  func: F,
+  delay: number
+): F => {
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (timer) clearTimeout(timer);
     }
+  }, [timer])
+
+  const debouncedFunction = (...args: Parameters<F>) => {
+    if (timer) clearTimeout(timer)
+    const newTimer = setTimeout(() => {
+      func(...args)
+    }, delay)
+    setTimer(newTimer)
   }
+
+  return debouncedFunction as F
+}
