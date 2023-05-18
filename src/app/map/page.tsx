@@ -22,16 +22,20 @@ import { Feature } from 'ol'
 import { iconStyle } from '@/utils/map'
 import { Layer } from 'ol/layer'
 import { returnOrUpdate } from 'ol/extent'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function Page() {
   const searchParams = useSearchParams()
   const cityId = searchParams.get("cityId")
   const map = useMapStore((state: any) => state.map)
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
 
   const { data: cityData } = useQuery(["getCity", cityId], async () => await getCityForClient(Number(cityId)))
   const { data: spotsData } = useQuery(["getSpots", cityId], async () => await getSpotsForClient(Number(cityId)), {
     onSuccess(data) {
-      const iconFeatureList:Feature<Geometry>[] = [];
+      const iconFeatureList:Feature<Geometry>[] = []
       data.forEach((element: SpotType) => { 
         const iconFeature = new Feature({
           geometry: new Point([element.lng, element.lat]),
@@ -49,6 +53,13 @@ function Page() {
       map.addLayer(pointLayer)
     },
   })
+
+  const onChange = (dates: [any, any]) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
+  
   useEffect(() => {
     if (!Object.keys(map).length) return
     const collection = map.getLayers()
@@ -59,7 +70,6 @@ function Page() {
       })
     }
   }, [map])
-  
 
   return (
     <>
@@ -76,7 +86,13 @@ function Page() {
               </div>
               <div className={styles.calender}>
                 <p>3 DAY</p>
-                <p>2023.05.22 - 2023.05.24</p>
+                <DatePicker
+                  selected={startDate}
+                  onChange={onChange}
+                  startDate={startDate}
+                  endDate={endDate}
+                  selectsRange
+                />
               </div>
               <div className={styles.desc}>{cityData.description}</div>
             </>

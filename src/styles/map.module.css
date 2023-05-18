@@ -35,11 +35,7 @@
 .mapLeftAside .calender p:first-child {
   font-weight: 800;
 }
-.mapLeftAside .calender p:last-of-type {
-  letter-spacing: -2.1px;
-  font-size: 21px;
-  color: #b6b6b6;
-}
+
 .mapLeftAside .desc {
   margin-top: 40px;
   line-height: 1.6;
