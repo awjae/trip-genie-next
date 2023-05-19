@@ -70,6 +70,7 @@
   box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
   color: #2e2e2f;
   max-width: 350px;
+  cursor: pointer;
 }
 .mapRightAside li:hover {
   box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;

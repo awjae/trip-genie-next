@@ -56,7 +56,14 @@ function Page() {
     },
   })
 
-  const onChange = (dates: [any, any]) => {
+  const handleSpotClick = (item: SpotType) => {
+    map.getView().animate({
+      center: [Number(item.lng), Number(item.lat)],
+      duration: 1000,
+    });
+  }
+
+  const handleDatePickerChange = (dates: [any, any]) => {
     const [start, end] = dates
     setStartDate(start)
     setEndDate(end)
@@ -99,7 +106,7 @@ function Page() {
                   endDate={endDate}
                   startDate={startDate}
                   minDate={new Date()}
-                  onChange={onChange}
+                  onChange={handleDatePickerChange}
                   locale={ko}
                   dateFormat='yyyy. MM. dd'
                   selectsRange
@@ -113,7 +120,7 @@ function Page() {
         <aside className={styles.mapRightAside}>
           <ul>
             { spotsData && spotsData?.map((spot: SpotType) => (
-              <SpotItem key={spot.id} id={spot.id} subName={spot.subName}></SpotItem>
+              <SpotItem key={spot.id} item={spot} handleSpotClick={handleSpotClick}></SpotItem>
             ))}
           </ul>
         </aside>
