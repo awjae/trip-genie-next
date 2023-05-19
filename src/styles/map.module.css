@@ -35,6 +35,13 @@
 .mapLeftAside .calender p:first-child {
   font-weight: 800;
 }
+.mapLeftAside .calender > div {
+  font-size: 16px;
+}
+.mapLeftAside .calender > div input {
+  width: 100%;
+  text-align: center;
+}
 
 .mapLeftAside .desc {
   margin-top: 40px;

@@ -23,6 +23,7 @@ import { iconStyle } from '@/utils/map'
 import { Layer } from 'ol/layer'
 import { returnOrUpdate } from 'ol/extent'
 import DatePicker from "react-datepicker";
+import { ko } from 'date-fns/esm/locale';
 import "react-datepicker/dist/react-datepicker.css";
 
 function Page() {
@@ -88,9 +89,12 @@ function Page() {
                 <p>3 DAY</p>
                 <DatePicker
                   selected={startDate}
-                  onChange={onChange}
-                  startDate={startDate}
                   endDate={endDate}
+                  startDate={startDate}
+                  minDate={new Date()}
+                  onChange={onChange}
+                  locale={ko}
+                  dateFormat='yyyy. MM. dd'
                   selectsRange
                 />
               </div>
