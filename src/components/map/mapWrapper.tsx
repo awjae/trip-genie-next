@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Map, View, Feature, Overlay } from 'ol'
 import { Tile } from 'ol/layer'
 import { OSM } from 'ol/source'
@@ -15,6 +15,43 @@ import { CityType } from '@/types/city'
 function MapWrapper({ city }: { city: CityType; }) {
   const map = useMapStore((state: any) => state.map)
   const setMap = useMapStore((state: any) => state.setMap)
+  const [mapPopover, setMapPopover] = useState({
+    popup: {},
+    isShow: false,
+    name: "",
+    address: "",
+  })
+  const mapPopupRef = useRef<HTMLInputElement>(null)
+  const moveStartFn = useCallback(() => {
+    // const overlay = map.getOverlayById('popup')
+    // overlay.setPosition(undefined)
+    setMapPopover({...mapPopover, isShow: false})
+  }, [])
+
+  const setPopup = (tempMap: Map) => {
+    if (!mapPopupRef.current) return;
+    const popup = new Overlay({
+      element: mapPopupRef.current,
+      positioning: 'bottom-center',
+      stopEvent: false,
+      id: 'popup'
+    })
+    tempMap.addOverlay(popup)
+    setMapPopover({...mapPopover, popup: popup})
+  }
+  const setClickInteraction = (tempMap: Map) => {
+    tempMap.on('singleclick', function (evt: any) {
+      setMapPopover({...mapPopover, isShow: false});
+      const feature = tempMap.forEachFeatureAtPixel(evt.pixel, (feature: any) => feature )
+      if (!feature) return
+
+      setMapPopover(prevState => ({...prevState, name: feature.get('name'), address: feature.get('address') }))
+
+      const overlay = tempMap.getOverlayById('popup')
+      overlay.setPosition(evt.coordinate)
+    })
+    tempMap.on('movestart', moveStartFn)
+  }
 
   useEffect(() => {
     if (!city) return
@@ -32,10 +69,12 @@ function MapWrapper({ city }: { city: CityType; }) {
       view: new View({
         projection: get('EPSG:4326') as Projection,
         center: [126.936743, 37.486479],
-        zoom: 11
+        zoom: 13
       }),
     })
     setMap(temp)
+    setPopup(temp)
+    setClickInteraction(temp)
     
     return () => {
       temp.setTarget(undefined)
@@ -43,9 +82,14 @@ function MapWrapper({ city }: { city: CityType; }) {
   }, [])
 
   return (
-    <>
+    <section className={styles.mapWrapper}> 
       <div id="map" className={styles.mapElements}></div>
-    </>
+      <div id="mapPopup" className={styles.mapPopup} ref={mapPopupRef}
+      >
+        <p>장소명 : {mapPopover.name}</p>
+        <p>주소 : {mapPopover.address}</p>
+      </div>
+    </section>
   )
 }
 

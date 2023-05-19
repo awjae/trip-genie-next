@@ -3,8 +3,13 @@
   width: 100vw;
   height: calc(100vh - 60px);
 }
-.mapElements {
+.mapWrapper {
   width: calc(100% - 480px);
+  height: 100%;
+  position: relative;
+}
+.mapElements {
+  width: 100%;
   height: 100%;
 }
 .mapLeftAside {
@@ -82,4 +87,14 @@
   word-break: keep-all;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.mapPopup {
+  padding: 10px;
+  max-width: 200px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  word-break: keep-all;
+  font-size: 12px;
+  line-height: 1.4;
 }

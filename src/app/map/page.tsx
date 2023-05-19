@@ -59,8 +59,17 @@ function Page() {
   const handleSpotClick = (item: SpotType) => {
     map.getView().animate({
       center: [Number(item.lng), Number(item.lat)],
-      duration: 1000,
-    });
+      duration: 500,
+    }, () => {
+      setTimeout(() => {
+        const pixel = map.getPixelFromCoordinate([Number(item.lng), Number(item.lat)])
+        pixel[1] -= 5;
+        map.dispatchEvent({
+          type: 'click',
+          pixel: pixel,
+        })
+      }, 500)
+    })
   }
 
   const handleDatePickerChange = (dates: [any, any]) => {
@@ -70,8 +79,8 @@ function Page() {
   }
   useEffect(() => {
     if (!endDate || !startDate) return
-    const timeDiff = endDate.getTime() - startDate.getTime();
-    const calculatedNDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
+    const timeDiff = endDate.getTime() - startDate.getTime()
+    const calculatedNDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1
     setNDays(calculatedNDays)
   }, [startDate, endDate])
 
