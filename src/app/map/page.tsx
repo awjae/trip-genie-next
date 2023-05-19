@@ -32,6 +32,7 @@ function Page() {
   const map = useMapStore((state: any) => state.map)
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
+  const [nDays, setNDays] = useState(1)
 
   const { data: cityData } = useQuery(["getCity", cityId], async () => await getCityForClient(Number(cityId)))
   const { data: spotsData } = useQuery(["getSpots", cityId], async () => await getSpotsForClient(Number(cityId)), {
@@ -56,11 +57,17 @@ function Page() {
   })
 
   const onChange = (dates: [any, any]) => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
-  };
-  
+    const [start, end] = dates
+    setStartDate(start)
+    setEndDate(end)
+  }
+  useEffect(() => {
+    if (!endDate || !startDate) return
+    const timeDiff = endDate.getTime() - startDate.getTime();
+    const calculatedNDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
+    setNDays(calculatedNDays)
+  }, [startDate, endDate])
+
   useEffect(() => {
     if (!Object.keys(map).length) return
     const collection = map.getLayers()
@@ -86,7 +93,7 @@ function Page() {
                 <p>{cityData.enName.toUpperCase()}</p>
               </div>
               <div className={styles.calender}>
-                <p>3 DAY</p>
+                <p>{nDays} DAY</p>
                 <DatePicker
                   selected={startDate}
                   endDate={endDate}
