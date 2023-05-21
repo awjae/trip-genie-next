@@ -65,10 +65,10 @@ function Page() {
         const pixel = map.getPixelFromCoordinate([Number(item.lng), Number(item.lat)])
         pixel[1] -= 5;
         map.dispatchEvent({
-          type: 'click',
+          type: 'singleclick',
           pixel: pixel,
         })
-      }, 500)
+      }, 600)
     })
   }
 

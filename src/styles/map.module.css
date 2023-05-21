@@ -98,4 +98,9 @@
   font-size: 12px;
   line-height: 1.4;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  display: none;
+  transform: translateY(-15px);
+}
+.active {
+  display: block;
 }

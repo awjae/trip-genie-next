@@ -11,22 +11,24 @@ import styles from '@/styles/map.module.css'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { getCities } from '@/lib/serverQueries'
 import { CityType } from '@/types/city'
+import classNames from 'classnames'
 
 function MapWrapper({ city }: { city: CityType; }) {
   const map = useMapStore((state: any) => state.map)
   const setMap = useMapStore((state: any) => state.setMap)
   const [mapPopover, setMapPopover] = useState({
     popup: {},
-    isShow: false,
     name: "",
     address: "",
   })
   const mapPopupRef = useRef<HTMLInputElement>(null)
-  const moveStartFn = useCallback(() => {
-    // const overlay = map.getOverlayById('popup')
-    // overlay.setPosition(undefined)
-    setMapPopover({...mapPopover, isShow: false})
-  }, [])
+  const [isShowPopup, setIsShowPopup] = useState(false)
+
+  const moveStartFn = () => {
+    if (!map) return 
+    setIsShowPopup(false)
+    // map.refresh()
+  }
 
   const setPopup = (tempMap: Map) => {
     if (!mapPopupRef.current) return;
@@ -41,14 +43,13 @@ function MapWrapper({ city }: { city: CityType; }) {
   }
   const setClickInteraction = (tempMap: Map) => {
     tempMap.on('singleclick', function (evt: any) {
-      setMapPopover({...mapPopover, isShow: false});
-      const feature = tempMap.forEachFeatureAtPixel(evt.pixel, (feature: any) => feature )
+      const feature = tempMap.forEachFeatureAtPixel(evt.pixel, (feature: any) => feature)
       if (!feature) return
-
+      
       setMapPopover(prevState => ({...prevState, name: feature.get('name'), address: feature.get('address') }))
-
       const overlay = tempMap.getOverlayById('popup')
-      overlay.setPosition(evt.coordinate)
+      overlay.setPosition(feature.getGeometry().getCoordinates())
+      setIsShowPopup(true)
     })
     tempMap.on('movestart', moveStartFn)
   }
@@ -69,7 +70,7 @@ function MapWrapper({ city }: { city: CityType; }) {
       view: new View({
         projection: get('EPSG:4326') as Projection,
         center: [126.936743, 37.486479],
-        zoom: 13
+        zoom: 11
       }),
     })
     setMap(temp)
@@ -84,7 +85,7 @@ function MapWrapper({ city }: { city: CityType; }) {
   return (
     <section className={styles.mapWrapper}> 
       <div id="map" className={styles.mapElements}></div>
-      <div id="mapPopup" className={styles.mapPopup} ref={mapPopupRef}
+      <div id="mapPopup" className={classNames(styles.mapPopup, {[styles.active]: isShowPopup})} ref={mapPopupRef}
       >
         <p>장소명 : {mapPopover.name}</p>
         <p>주소 : {mapPopover.address}</p>

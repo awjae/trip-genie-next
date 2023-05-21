@@ -3,7 +3,7 @@ import Style from "ol/style/Style";
 
 export const iconStyle = new Style({
   image: new Icon({
-    anchor: [0.5, 0.5],
+    anchor: [0.5, 25],
     anchorXUnits: 'fraction',
     anchorYUnits: 'pixels',
     src: '/images/icon/point.png',
