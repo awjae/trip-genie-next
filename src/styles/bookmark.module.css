@@ -1,0 +1,11 @@
+.bookmarkWrapper {
+  margin-top: 30px;
+}
+.bookmarkWrapper .typography {
+  font-family: JUA;
+  font-size: 18px;
+}
+.bookmarkWrapper .typography img {
+  margin-right: 10px;
+  transform: translateY(2px);
+}

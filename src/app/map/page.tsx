@@ -24,6 +24,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import styled from '@emotion/styled'
 import Image from 'next/image'
+import BookmarkWrapper from '@/components/map/bookmarkWrapper'
 
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -46,6 +47,7 @@ function Page() {
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
   const [nDays, setNDays] = useState(1)
+  const [bookmarkList, setBookmarkList] = useState([])
 
   const { data: cityData } = useQuery(["getCity", cityId], async () => await getCityForClient(Number(cityId)))
   const { data: spotsData } = useQuery(["getSpots", cityId], async () => await getSpotsForClient(Number(cityId)), {
@@ -128,19 +130,22 @@ function Page() {
               </div>
               <div className={styles.calender}>
                 <p>{nDays} DAY</p>
-                <DatePicker
-                  selected={startDate}
-                  endDate={endDate}
-                  startDate={startDate}
-                  minDate={new Date()}
-                  onChange={handleDatePickerChange}
-                  locale={ko}
-                  dateFormat='yyyy. MM. dd'
-                  selectsRange
-                />
+                <div>
+                  <DatePicker
+                    selected={startDate}
+                    endDate={endDate}
+                    startDate={startDate}
+                    minDate={new Date()}
+                    onChange={handleDatePickerChange}
+                    locale={ko}
+                    dateFormat='yyyy. MM. dd'
+                    selectsRange
+                  />
+                </div>
               </div>
             </>
           )}
+          <BookmarkWrapper bookmarkList={bookmarkList}></BookmarkWrapper>
         </aside>
         <MapWrapper city={cityData}></MapWrapper>
         <aside className={styles.mapRightAside}>
