@@ -68,7 +68,7 @@ function Page() {
           type: 'singleclick',
           pixel: pixel,
         })
-      }, 600)
+      }, 100)
     })
   }
 

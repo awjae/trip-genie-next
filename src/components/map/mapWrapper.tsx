@@ -45,7 +45,7 @@ function MapWrapper({ city }: { city: CityType; }) {
     tempMap.on('singleclick', function (evt: any) {
       const feature = tempMap.forEachFeatureAtPixel(evt.pixel, (feature: any) => feature)
       if (!feature) return
-      
+      console.log(feature)
       setMapPopover(prevState => ({...prevState, name: feature.get('name'), address: feature.get('address') }))
       const overlay = tempMap.getOverlayById('popup')
       overlay.setPosition(feature.getGeometry().getCoordinates())
