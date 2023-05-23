@@ -20,11 +20,19 @@
   box-shadow: rgba(99, 99, 99, 0.4) 0px 0px 5px 0px;
   z-index: 1;
 }
-.mapLeftAside h1 {
+.mapLeftAside .titleWrapper {
+  position: relative;  
+}
+.mapLeftAside .titleWrapper h1 {
   font-size: 32px;
   font-weight: 900;
 }
-.mapLeftAside h1 + p {
+.mapLeftAside .titleWrapper img {
+  position: absolute;
+  right: 20px;
+  top: 16px;
+}
+.mapLeftAside .titleWrapper + p {
   margin-bottom: 25px;
   font-size: 21px;
   color: #b6b6b6;
@@ -46,14 +54,6 @@
 .mapLeftAside .calender > div input {
   width: 100%;
   text-align: center;
-}
-
-.mapLeftAside .desc {
-  margin-top: 40px;
-  line-height: 1.6;
-  word-break: keep-all;
-  text-align: left;
-  font-size: 15px;
 }
 
 .mapRightAside {

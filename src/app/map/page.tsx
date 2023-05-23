@@ -4,9 +4,8 @@ import MapWrapper from '@/components/map/mapWrapper'
 import React, { useEffect, useState } from 'react'
 import styles from '@/styles/map.module.css'
 import { useSearchParams } from 'next/navigation'
-import { use } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { getCityForClient, getSpotsForClient, postCityForClient } from '@/lib/fetchers'
+import { useQuery } from '@tanstack/react-query'
+import { getCityForClient, getSpotsForClient,  } from '@/lib/fetchers'
 import HeaderContents from '@/components/common/header/headerContents'
 import classNames from 'classnames'
 import headerStyles from '@/styles/header.module.css'
@@ -14,17 +13,31 @@ import { SpotType } from '@/types/spot'
 import SpotItem from '@/components/map/spotItem'
 import useMapStore from '@/store/mapStore'
 import VectorLayer from 'ol/layer/Vector'
-import Style from 'ol/style/Style'
-import Icon from 'ol/style/Icon'
 import VectorSource from 'ol/source/Vector'
 import { Geometry, Point } from 'ol/geom'
 import { Feature } from 'ol'
 import { iconStyle } from '@/utils/map'
 import { Layer } from 'ol/layer'
-import { returnOrUpdate } from 'ol/extent'
 import DatePicker from "react-datepicker";
 import { ko } from 'date-fns/esm/locale';
 import "react-datepicker/dist/react-datepicker.css";
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import styled from '@emotion/styled'
+import Image from 'next/image'
+
+const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: '#fff',
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
+    fontSize: 14,
+    padding: '15px',
+    wordBreak: 'keep-all',
+    lineHeight: 1.4
+  },
+}))
 
 function Page() {
   const searchParams = useSearchParams()
@@ -105,7 +118,12 @@ function Page() {
           { cityData && (
             <>
               <div>
-                <h1>{cityData.name}</h1>
+                <div className={styles.titleWrapper}>
+                  <h1>{cityData.name}</h1>
+                  <LightTooltip title={cityData.description} placement="right-end">
+                    <Image src='/images/icon/info.png' alt={'여행지 툴팁'} width={18} height={18}></Image>
+                  </LightTooltip>
+                </div>
                 <p>{cityData.enName.toUpperCase()}</p>
               </div>
               <div className={styles.calender}>
@@ -121,7 +139,6 @@ function Page() {
                   selectsRange
                 />
               </div>
-              <div className={styles.desc}>{cityData.description}</div>
             </>
           )}
         </aside>
