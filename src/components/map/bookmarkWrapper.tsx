@@ -6,6 +6,7 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import Typography from '@mui/material/Typography'
 import Image from 'next/image'
 import styles from '@/styles/bookmark.module.css'
+import mapStyles from '@/styles/map.module.css'
 import styled from '@emotion/styled';
 
 const Accordion = styled((props: AccordionProps) => (
@@ -25,6 +26,9 @@ const Accordion = styled((props: AccordionProps) => (
     borderRight: 'solid 1px #f2f8fe',
     borderBottom: 'solid 1px #f2f8fe',
     boxSizing: 'border-box'
+  },
+  '& .MuiAccordionDetails-root': {
+    padding: '8px',
   }
 }))
 
@@ -37,8 +41,18 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
   flexDirection: 'row-reverse',
 }))
 
+interface BookmarkWrapperType { 
+  bookmarkList: SpotType[]; 
+  handleSpotClick: Function; 
+  handleDeleteBookmark: Function; 
+}
+function BookmarkWrapper({ bookmarkList, handleSpotClick, handleDeleteBookmark }: BookmarkWrapperType) {
 
-function BookmarkWrapper({ bookmarkList }: { bookmarkList: SpotType[] }) {
+  const handleClickDeleteBtn = (e: React.MouseEvent<HTMLButtonElement>, item: SpotType) => {
+    e.stopPropagation()
+    handleDeleteBookmark(item)
+  }
+
   return (
     <div className={styles.bookmarkWrapper}>
       <Accordion>
@@ -69,7 +83,12 @@ function BookmarkWrapper({ bookmarkList }: { bookmarkList: SpotType[] }) {
                 <li>저장한 장소가 없습니다.</li>
               )}
               {bookmarkList.map(el => (
-                <li key={el.id}>{el.name}</li>  
+                <li key={el.id} className={styles.bookmarkItem} onClick={() => handleSpotClick(el)}>
+                  <span>{el.name}</span>
+                  <button className={mapStyles.spotAddBtn} onClick={(e) => handleClickDeleteBtn(e, el)}>
+                    <Image alt='북마크 제거 아이콘' src='/images/icon/minus.png' width={18} height={18}></Image>
+                  </button>
+                </li>  
               ))}
             </ul>
           </Typography>

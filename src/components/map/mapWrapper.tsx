@@ -70,7 +70,7 @@ function MapWrapper({ city }: { city: CityType; }) {
       view: new View({
         projection: get('EPSG:4326') as Projection,
         center: [126.936743, 37.486479],
-        zoom: 11
+        zoom: 14
       }),
     })
     setMap(temp)

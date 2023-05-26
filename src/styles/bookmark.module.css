@@ -9,3 +9,21 @@
   margin-right: 10px;
   transform: translateY(2px);
 }
+.bookmarkItem {
+  text-align: left;
+  position: relative;
+  background-color: #ffffff;
+  padding: 6px 10px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  border: 3px dashed transparent;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  color: #2e2e2f;
+  max-width: 350px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.bookmarkItem:hover {
+  box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
+  border-color: rgba(162, 179, 207, 0.2) !important;
+}

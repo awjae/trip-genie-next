@@ -71,6 +71,9 @@ function Page() {
     },
   })
 
+  const handleDeleteBookmark = (item: SpotType) => {
+    setBookmarkList(prevState => ([...prevState.filter(spot => spot.id !== item.id)]))
+  }
   const handleAddBookmark = (item: SpotType) => {
     setBookmarkList(prevState => ([...prevState, item]))
   }
@@ -149,7 +152,11 @@ function Page() {
               </div>
             </>
           )}
-          <BookmarkWrapper bookmarkList={bookmarkList}></BookmarkWrapper>
+          <BookmarkWrapper 
+            bookmarkList={bookmarkList} 
+            handleSpotClick={handleSpotClick}
+            handleDeleteBookmark={handleDeleteBookmark}
+          ></BookmarkWrapper>
         </aside>
         <MapWrapper city={cityData}></MapWrapper>
         <aside className={styles.mapRightAside}>
@@ -160,6 +167,7 @@ function Page() {
                 item={spot} 
                 handleSpotClick={handleSpotClick} 
                 handleAddBookmark={handleAddBookmark}
+                isAlreadyBookmark={bookmarkList.filter(bookmark => bookmark.id === spot.id).length ? true : false}
               ></SpotItem>
             ))}
           </ul>
