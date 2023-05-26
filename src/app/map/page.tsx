@@ -47,7 +47,7 @@ function Page() {
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
   const [nDays, setNDays] = useState(1)
-  const [bookmarkList, setBookmarkList] = useState([])
+  const [bookmarkList, setBookmarkList] = useState<SpotType[]>([])
 
   const { data: cityData } = useQuery(["getCity", cityId], async () => await getCityForClient(Number(cityId)))
   const { data: spotsData } = useQuery(["getSpots", cityId], async () => await getSpotsForClient(Number(cityId)), {
@@ -70,6 +70,10 @@ function Page() {
       map.addLayer(pointLayer)
     },
   })
+
+  const handleAddBookmark = (item: SpotType) => {
+    setBookmarkList(prevState => ([...prevState, item]))
+  }
 
   const handleSpotClick = (item: SpotType) => {
     map.getView().animate({
@@ -151,7 +155,12 @@ function Page() {
         <aside className={styles.mapRightAside}>
           <ul>
             { spotsData && spotsData?.map((spot: SpotType) => (
-              <SpotItem key={spot.id} item={spot} handleSpotClick={handleSpotClick}></SpotItem>
+              <SpotItem 
+                key={spot.id} 
+                item={spot} 
+                handleSpotClick={handleSpotClick} 
+                handleAddBookmark={handleAddBookmark}
+              ></SpotItem>
             ))}
           </ul>
         </aside>

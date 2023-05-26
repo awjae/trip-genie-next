@@ -64,8 +64,14 @@ function BookmarkWrapper({ bookmarkList }: { bookmarkList: SpotType[] }) {
         </AccordionSummary>
         <AccordionDetails>
           <Typography className={styles.typographyDetails}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
+            <ul>
+              {bookmarkList.length === 0 && (
+                <li>저장한 장소가 없습니다.</li>
+              )}
+              {bookmarkList.map(el => (
+                <li key={el.id}>{el.name}</li>  
+              ))}
+            </ul>
           </Typography>
         </AccordionDetails>
       </Accordion>
