@@ -1,7 +1,7 @@
 ## trip-genie-next ##
 trip-genie next 마이그레이션 및 리뉴얼
  - 서비스 개선 : AI가 메인이 아닌 플래닝이 주요 서비스로 변경
- - React => Next 13 변경
+ - React => Next 13 변경 (App 디렉)
 
 ## Thumnail ##
 
