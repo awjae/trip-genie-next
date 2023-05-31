@@ -20,10 +20,9 @@
   min-height: 40px;
   border-radius: 4px;
   outline: none;
-  border: none;
   line-height: 1.15;
   box-shadow: 0px 10px 20px -18px;
-  outline: 1px solid lightgrey;
+  border: 1px solid lightgrey;
   margin-bottom: 25px;
 }
 .loginWrapper input:focus {
