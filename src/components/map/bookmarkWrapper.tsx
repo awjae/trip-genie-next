@@ -43,19 +43,27 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 
 interface BookmarkWrapperType { 
   bookmarkList: SpotType[]; 
+  hotelList: SpotType[]; 
   handleSpotClick: Function; 
   handleDeleteBookmark: Function; 
 }
-function BookmarkWrapper({ bookmarkList, handleSpotClick, handleDeleteBookmark }: BookmarkWrapperType) {
+function BookmarkWrapper({ bookmarkList, hotelList, handleSpotClick, handleDeleteBookmark }: BookmarkWrapperType) {
 
-  const handleClickDeleteBtn = (e: React.MouseEvent<HTMLButtonElement>, item: SpotType) => {
+  const handleClickDeleteBtn = (e: React.MouseEvent<HTMLButtonElement>, item: SpotType, type: string) => {
     e.stopPropagation()
-    handleDeleteBookmark(item)
+    if (type === "bookmark") {
+      handleDeleteBookmark(item)
+      return
+    }
+    if (type === "hotel") {
+
+      return
+    }
   }
 
   return (
     <div className={styles.bookmarkWrapper}>
-      <Accordion>
+      <Accordion expanded>
         <AccordionSummary>
           <Typography className={styles.typography}>
             <Image alt='숙소 아이콘' src='/images/icon/home.png' width={18} height={18}></Image>
@@ -64,12 +72,23 @@ function BookmarkWrapper({ bookmarkList, handleSpotClick, handleDeleteBookmark }
         </AccordionSummary>
         <AccordionDetails>
           <Typography className={styles.typographyDetails}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
+            <ul>
+              {hotelList.length === 0 && (
+                <li>저장한 장소가 없습니다.</li>
+              )}
+              {hotelList.map(el => (
+                <li key={el.id} className={styles.bookmarkItem} onClick={() => handleSpotClick(el, 'hotel')}>
+                  <span>{el.name}</span>
+                  <button className={mapStyles.spotAddBtn} onClick={(e) => handleClickDeleteBtn(e, el, 'hotel')}>
+                    <Image alt='북마크 제거 아이콘' src='/images/icon/minus.png' width={18} height={18}></Image>
+                  </button>
+                </li>  
+              ))}
+            </ul>
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <Accordion>
+      <Accordion expanded>
         <AccordionSummary>
           <Typography className={styles.typography}>
             <Image alt='장소 아이콘' src='/images/icon/bookmark.png' width={18} height={18}></Image>
@@ -83,9 +102,9 @@ function BookmarkWrapper({ bookmarkList, handleSpotClick, handleDeleteBookmark }
                 <li>저장한 장소가 없습니다.</li>
               )}
               {bookmarkList.map(el => (
-                <li key={el.id} className={styles.bookmarkItem} onClick={() => handleSpotClick(el)}>
+                <li key={el.id} className={styles.bookmarkItem} onClick={() => handleSpotClick(el, 'bookmark')}>
                   <span>{el.name}</span>
-                  <button className={mapStyles.spotAddBtn} onClick={(e) => handleClickDeleteBtn(e, el)}>
+                  <button className={mapStyles.spotAddBtn} onClick={(e) => handleClickDeleteBtn(e, el, 'bookmark')}>
                     <Image alt='북마크 제거 아이콘' src='/images/icon/minus.png' width={18} height={18}></Image>
                   </button>
                 </li>  

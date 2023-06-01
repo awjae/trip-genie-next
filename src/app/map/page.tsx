@@ -48,6 +48,7 @@ function Page() {
   const [endDate, setEndDate] = useState(new Date())
   const [nDays, setNDays] = useState(1)
   const [bookmarkList, setBookmarkList] = useState<SpotType[]>([])
+  const [hotelList, setHotelList] = useState<SpotType[]>([])
 
   const { data: cityData } = useQuery(["getCity", cityId], async () => await getCityForClient(Number(cityId)))
   const { data: spotsData } = useQuery(["getSpots", cityId], async () => await getSpotsForClient(Number(cityId)), {
@@ -75,10 +76,11 @@ function Page() {
     setBookmarkList(prevState => ([...prevState.filter(spot => spot.id !== item.id)]))
   }
   const handleAddBookmark = (item: SpotType) => {
+
     setBookmarkList(prevState => ([...prevState, item]))
   }
 
-  const handleSpotClick = (item: SpotType) => {
+  const handleSpotClick = (item: SpotType, type: string) => {
     map.getView().animate({
       center: [Number(item.lng), Number(item.lat)],
       duration: 500,
@@ -154,6 +156,7 @@ function Page() {
           )}
           <BookmarkWrapper 
             bookmarkList={bookmarkList} 
+            hotelList={hotelList} 
             handleSpotClick={handleSpotClick}
             handleDeleteBookmark={handleDeleteBookmark}
           ></BookmarkWrapper>
