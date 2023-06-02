@@ -74,7 +74,7 @@ function BookmarkWrapper({ bookmarkList, hotelList, handleSpotClick, handleDelet
           <Typography className={styles.typographyDetails}>
             <ul>
               {hotelList.length === 0 && (
-                <li>저장한 장소가 없습니다.</li>
+                <li><button>+</button></li>
               )}
               {hotelList.map(el => (
                 <li key={el.id} className={styles.bookmarkItem} onClick={() => handleSpotClick(el, 'hotel')}>

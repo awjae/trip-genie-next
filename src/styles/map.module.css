@@ -28,9 +28,13 @@
   display: inline-block;
   font-size: 32px;
   font-weight: 900;
+  word-break: keep-all;
 }
 .mapLeftAside .titleWrapper img {
   transform: translate(6px, 6px);
+  position: absolute;
+  bottom: 28px;
+  right: -2px;
 }
 .mapLeftAside .titleWrapper + p {
   margin-bottom: 25px;
