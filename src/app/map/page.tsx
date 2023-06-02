@@ -25,6 +25,7 @@ import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import styled from '@emotion/styled'
 import Image from 'next/image'
 import BookmarkWrapper from '@/components/map/bookmarkWrapper'
+import MapSearch from '@/components/map/mapSearch'
 
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -163,6 +164,7 @@ function Page() {
         </aside>
         <MapWrapper city={cityData}></MapWrapper>
         <aside className={styles.mapRightAside}>
+          <MapSearch></MapSearch>
           <ul>
             { spotsData && spotsData?.map((spot: SpotType) => (
               <SpotItem 

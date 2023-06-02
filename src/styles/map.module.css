@@ -68,7 +68,7 @@
 
 .mapRightAside {
   width: 230px;
-  padding: 35px 15px 15px;
+  padding: 0px 15px 15px;
   height: 100%;
   box-shadow: rgba(99, 99, 99, 0.4) 0px 0px 5px 0px;
   z-index: 1;
@@ -97,6 +97,10 @@
   word-break: keep-all;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.mapSearch {
+  margin: 16px 0px;
 }
 
 .mapPopup {
