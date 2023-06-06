@@ -23,7 +23,6 @@ function SearchInput({ suggestionList }: { suggestionList: CityType[] }) {
   }
 
   const filteredSuggestionFn = (value: string) => {
-    console.log(value)
     setFilterdeSuggestionList(suggestionList.filter(name => name.name.indexOf(value) > -1))
   }
 
@@ -43,11 +42,18 @@ function SearchInput({ suggestionList }: { suggestionList: CityType[] }) {
     router.push(`/map`)
   }
 
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && filterdeSuggestionList.length === 1) {
+      handleSuggestionClick(filterdeSuggestionList[0])
+    }
+  }
+
   return (
     <div>
       <input id="searchInput" type="text" placeholder='여행지를 입력해주세요.' value={inputText} 
         onChange={handleSearchInputChange}
         onFocus={() => setIsShowSuggestionLayer(true)}
+        onKeyDown={handleSearchKeyDown}
       />
       <a onClick={goMap}>
         <Image src="/images/icon/search.svg" alt="" width={30} height={30}/>
