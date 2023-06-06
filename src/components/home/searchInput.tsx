@@ -45,6 +45,7 @@ function SearchInput({ suggestionList }: { suggestionList: CityType[] }) {
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && filterdeSuggestionList.length === 1) {
       handleSuggestionClick(filterdeSuggestionList[0])
+      goMap()
     }
   }
 
