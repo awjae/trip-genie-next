@@ -54,6 +54,6 @@
   line-height: 15px;
   cursor: pointer;
 }
-.suggestionContainer li:hover {
+.suggestionContainer li:hover, .suggestionContainer li.select {
   background-color: rgba(255, 255, 255, .85);
 }
