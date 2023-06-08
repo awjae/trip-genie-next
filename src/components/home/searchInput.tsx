@@ -74,7 +74,20 @@ function SearchInput({ suggestionList }: { suggestionList: CityType[] }) {
         return { ...suggestion, select: false }
       }))
     }
-    
+    if (e.key === 'ArrowUp') {
+      const findSelected = filterdeSuggestionList.findIndex(suggestion => suggestion.select)
+      if (findSelected < 0) return
+
+      setFilterdeSuggestionList(filterdeSuggestionList.map((suggestion, idx) => {
+        if (idx === findSelected - 1) {
+          return {
+            ...suggestion,
+            select: true
+          }
+        }
+        return { ...suggestion, select: false }
+      }))
+    }
   }
 
   return (
