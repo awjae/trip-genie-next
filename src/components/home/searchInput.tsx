@@ -8,6 +8,15 @@ import { CityType } from '@/types/city'
 import { useRouter } from 'next/navigation'
 import { useDebounceFunction } from '@/utils/utils'
 import classNames from 'classnames'
+import TextField from '@mui/material/TextField'
+import Autocomplete from '@mui/material/Autocomplete'
+import styled from '@emotion/styled'
+
+const StyledTextField = styled(TextField)({
+  'input': {
+    height: '24px !important' 
+  }
+})
 
 function SearchInput({ suggestionList }: { suggestionList: CityType[] }) {
   const [inputText, setInputText] = useState('')
@@ -101,7 +110,7 @@ function SearchInput({ suggestionList }: { suggestionList: CityType[] }) {
         <Image src="/images/icon/search.svg" alt="" width={30} height={30}/>
       </a>
       { isShowSuggestionLayer && filterdeSuggestionList.length > 0 && (
-        <ul className={styles.suggestionContainer}>
+        <ul className={styles.suggestionContainer} >
           { filterdeSuggestionList.map(city => (
             <li key={city.id} onClick={() => handleSuggestionClick(city)} className={classNames({ [styles.select]: city.select })}>
               { city.name }
@@ -109,6 +118,29 @@ function SearchInput({ suggestionList }: { suggestionList: CityType[] }) {
           ))}
         </ul>
       )}
+      {/* <Autocomplete
+        freeSolo
+        disableClearable
+        options={filterdeSuggestionList.map((option) => option.name)}
+        renderOption={(props, option) => {
+          console.log(props, option)
+          return (
+            <li {...props} key={option.id}>
+              {option.name}
+            </li>
+          );
+        }}
+        renderInput={(params) => (
+          <StyledTextField
+            {...params}
+            label="여행지를 입력해주세요"
+            InputProps={{
+              ...params.InputProps,
+              type: 'search',
+            }}
+          />
+        )}
+      /> */}
     </div>
   )
 }
