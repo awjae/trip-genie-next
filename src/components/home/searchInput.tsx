@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styles from '@/app/page.module.css'
 import { CityType } from '@/types/city'
 import { useRouter } from 'next/navigation'
@@ -24,6 +24,7 @@ function SearchInput({ suggestionList }: { suggestionList: CityType[] }) {
   const [filterdeSuggestionList, setFilterdeSuggestionList] = useState(suggestionList.map(suggestion => ({ ...suggestion, select: false })))
   const [selectedCity, setSelectedCity] = useState<CityType|null>(null)
   const router = useRouter()
+  const suggestionRef = useRef(null);
 
   const handleSuggestionClick = (city: CityType) => {
     setInputText(city.name)
@@ -82,6 +83,11 @@ function SearchInput({ suggestionList }: { suggestionList: CityType[] }) {
         }
         return { ...suggestion, select: false }
       }))
+
+      if (findSelected > 2 && suggestionRef.current) {
+        const top = (suggestionRef.current?.scrollTop + 35)
+        suggestionRef.current.scrollTo(0, top)
+      }
     }
     if (e.key === 'ArrowUp') {
       const findSelected = filterdeSuggestionList.findIndex(suggestion => suggestion.select)
@@ -111,7 +117,7 @@ function SearchInput({ suggestionList }: { suggestionList: CityType[] }) {
         <Image src="/images/icon/search.svg" alt="" width={30} height={30}/>
       </a>
       { isShowSuggestionLayer && filterdeSuggestionList.length > 0 && (
-        <ul className={styles.suggestionContainer} >
+        <ul className={styles.suggestionContainer} ref={suggestionRef}>
           { filterdeSuggestionList.map(city => (
             <li key={city.id} onClick={() => handleSuggestionClick(city)} className={classNames({ [styles.select]: city.select })}>
               { city.name }
