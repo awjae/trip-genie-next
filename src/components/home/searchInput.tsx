@@ -105,6 +105,7 @@ function SearchInput({ suggestionList }: { suggestionList: CityType[] }) {
         onChange={handleSearchInputChange}
         onFocus={() => setIsShowSuggestionLayer(true)}
         onKeyDown={handleSearchKeyDown}
+        autoComplete="off"
       />
       <a onClick={goMap}>
         <Image src="/images/icon/search.svg" alt="" width={30} height={30}/>
