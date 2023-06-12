@@ -24,7 +24,7 @@ function SearchInput({ suggestionList }: { suggestionList: CityType[] }) {
   const [filterdeSuggestionList, setFilterdeSuggestionList] = useState(suggestionList.map(suggestion => ({ ...suggestion, select: false })))
   const [selectedCity, setSelectedCity] = useState<CityType|null>(null)
   const router = useRouter()
-  const suggestionRef = useRef(null);
+  const suggestionRef = useRef<HTMLInputElement>(null);
 
   const handleSuggestionClick = (city: CityType) => {
     setInputText(city.name)
@@ -102,6 +102,11 @@ function SearchInput({ suggestionList }: { suggestionList: CityType[] }) {
         }
         return { ...suggestion, select: false }
       }))
+
+      if (suggestionRef.current) {
+        const top = (suggestionRef.current?.scrollTop - 35)
+        suggestionRef.current.scrollTo(0, top)
+      }
     }
   }
 
